@@ -7,6 +7,16 @@ This project demonstrates how to create a modular and scalable application using
 
 ---
 
+## 👥 Team Contribution
+
+This project was developed as a collaborative academic project.
+
+- I was responsible for designing and implementing the backend using Spring Boot.
+- My work included REST API development, database integration with MongoDB, and implementing search functionality.
+- The frontend (ReactJS) and UI components were handled by other team members.
+
+---
+
 ## 🚀 Features
 
 - 🔍 **Job Feed Page**: View all available job posts fetched from a local MongoDB database.
