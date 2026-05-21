@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JobPortal — Find Your Dream Job</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: #0f172a;
+      padding: 0 60px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: #3b82f6; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #ffffff; }
+    .nav-cta {
+      background: #3b82f6;
+      color: #ffffff !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: #2563eb !important; color: #fff !important; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1e40af 100%);
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+      bottom: -80px; left: -80px;
+      border-radius: 50%;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(59,130,246,0.2);
+      border: 1px solid rgba(59,130,246,0.4);
+      color: #93c5fd;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+    .hero h1 span { color: #60a5fa; }
+    .hero p {
+      font-size: 18px;
+      color: #94a3b8;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: #3b82f6;
+      color: #ffffff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: #2563eb; transform: translateY(-1px); box-shadow: 0 8px 25px rgba(59,130,246,0.4); }
+    .btn-secondary {
+      background: transparent;
+      color: #ffffff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.3);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: #1e293b;
+      padding: 28px 60px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 800; color: #3b82f6; }
+    .stat-label { font-size: 13px; color: #64748b; margin-top: 4px; font-weight: 500; }
+
+    /* ── SECTION ── */
+    .section { padding: 80px 60px; }
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: #0f172a;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      text-align: center;
+      color: #64748b;
+      font-size: 16px;
+      margin-bottom: 56px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .step-card {
+      text-align: center;
+      padding: 40px 24px;
+      background: #f8fafc;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
+    }
+    .step-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(15,23,42,0.1); }
+    .step-num {
+      width: 56px; height: 56px;
+      background: #0f172a;
+      color: #ffffff;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .step-card h3 { font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 10px; }
+    .step-card p { font-size: 14px; color: #64748b; line-height: 1.6; }
+
+    /* ── CATEGORIES ── */
+    .categories-section { background: #f8fafc; }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .cat-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-card:hover { border-color: #3b82f6; background: #eff6ff; transform: translateY(-3px); }
+    .cat-icon { font-size: 32px; margin-bottom: 12px; }
+    .cat-name { font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 4px; }
+    .cat-count { font-size: 12px; color: #94a3b8; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);
+      padding: 80px 60px;
+      text-align: center;
+    }
+    .cta-banner h2 { font-size: 40px; font-weight: 800; color: #ffffff; margin-bottom: 16px; }
+    .cta-banner p { font-size: 17px; color: #94a3b8; margin-bottom: 36px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0f172a;
+      padding: 40px 60px;
+      text-align: center;
+    }
+    .footer-logo { font-size: 20px; font-weight: 800; color: #ffffff; margin-bottom: 16px; }
+    .footer-logo span { color: #3b82f6; }
+    footer p { font-size: 13px; color: #475569; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .hero h1 { font-size: 36px; }
+      .section { padding: 60px 20px; }
+      .stats-bar { padding: 20px; gap: 40px; }
+      .cta-banner { padding: 60px 20px; }
+      .cta-banner h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+	<!-- NAVBAR -->
+	<nav>
+	  <div class="nav-logo">Job<span>Portal</span></div>
+	  <div class="nav-links">
+	    <a href="jobs.html">Browse Jobs</a>
+	    <a href="create.html">Post a Job</a>
+	    <a href="create.html" class="nav-cta">Get Started</a>
+	  </div>
+	</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🚀 100+ Active Job Listings</div>
+    <h1>Find Your <span>Dream Job</span><br/>Today</h1>
+    <p>Browse thousands of job opportunities across technology, data science, DevOps, and more. Your next career move starts here.</p>
+    <div class="hero-buttons">
+      <a href="jobs.html" class="btn-primary">Browse Jobs →</a>
+      <a href="create.html" class="btn-secondary">Post a Job</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">500+</div>
+    <div class="stat-label">Jobs Posted</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">200+</div>
+    <div class="stat-label">Companies</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">10K+</div>
+    <div class="stat-label">Job Seekers</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">95%</div>
+    <div class="stat-label">Placement Rate</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-title">How It Works</div>
+  <div class="section-sub">Get hired in 3 simple steps</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Browse Jobs</h3>
+      <p>Explore hundreds of job listings across all technology domains and experience levels.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>Search by Skills</h3>
+      <p>Filter jobs by keyword — search for Java, Python, DevOps, React or any technology.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Post Your Job</h3>
+      <p>Employers can post new job listings instantly using our simple job creation form.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section categories-section">
+  <div class="section-title">Explore by Category</div>
+  <div class="section-sub">Find jobs in your area of expertise</div>
+  <div class="categories-grid">
+    <a href="jobs.html?search=java" class="cat-card">
+      <div class="cat-icon">☕</div>
+      <div class="cat-name">Java / Spring</div>
+      <div class="cat-count">Backend Development</div>
+    </a>
+    <a href="jobs.html?search=python" class="cat-card">
+      <div class="cat-icon">🐍</div>
+      <div class="cat-name">Python</div>
+      <div class="cat-count">Data & Backend</div>
+    </a>
+    <a href="jobs.html?search=devops" class="cat-card">
+      <div class="cat-icon">⚙️</div>
+      <div class="cat-name">DevOps</div>
+      <div class="cat-count">Cloud & Infrastructure</div>
+    </a>
+    <a href="jobs.html?search=microservices" class="cat-card">
+      <div class="cat-icon">🔗</div>
+      <div class="cat-name">Microservices</div>
+      <div class="cat-count">Architecture</div>
+    </a>
+    <a href="jobs.html?search=data" class="cat-card">
+      <div class="cat-icon">📊</div>
+      <div class="cat-name">Data Science</div>
+      <div class="cat-count">ML & Analytics</div>
+    </a>
+    <a href="jobs.html?search=cloud" class="cat-card">
+      <div class="cat-icon">☁️</div>
+      <div class="cat-name">Cloud / AWS</div>
+      <div class="cat-count">Infrastructure</div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Ready to Post a Job Opening?</h2>
+  <p>Reach thousands of qualified developers and engineers. Create a job posting in under a minute.</p>
+  <a href="create.html" class="btn-primary" style="font-size:16px; padding:16px 40px;">Post a Job Now →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Job<span>Portal</span></div>
+  <p>Built with Java Spring Boot + MySQL | Bhoomika &copy; 2025</p>
+</footer>
+
+</body>
+</html>
